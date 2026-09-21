@@ -179,79 +179,37 @@ class CatalogoController extends Controller
         'categoriaActual' => $categoria
     ]);
     }
-        public function detalleNegocio($id){
-        /*
-        |--------------------------------------------------------------------------
-        | PRODUCTO SELECCIONADO
-        |--------------------------------------------------------------------------
-        */
+public function detalleNegocio($id){
+    $negocio = DB::table('negocios')
+        ->where('id', $id)
+        ->first();
 
-        $producto = DB::table('productos_servicios')
-
-            ->where('id', $id)
-
-            ->first();
-
-        if(!$producto){
-
-            abort(404);
-
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | NEGOCIO
-        |--------------------------------------------------------------------------
-        */
-
-        $negocio = DB::table('negocios')
-
-            ->where('id', $producto->negocio_id)
-
-            ->first();
-
-        /*
-        |--------------------------------------------------------------------------
-        | PRODUCTOS Y SERVICIOS DEL NEGOCIO
-        |--------------------------------------------------------------------------
-        */
-
-        $productos = DB::table('productos_servicios')
-
-            ->leftJoin(
-                'imagenes_productos',
-                'productos_servicios.id',
-                '=',
-                'imagenes_productos.producto_id'
-            )
-
-            ->leftJoin(
-                'categorias_negocio',
-                'productos_servicios.categoria_id',
-                '=',
-                'categorias_negocio.id'
-            )
-
-            ->select(
-                'productos_servicios.*',
-                'imagenes_productos.ruta_imagen',
-                'categorias_negocio.nombre_categoria'
-            )
-
-            ->where(
-                'productos_servicios.negocio_id',
-                $negocio->id
-            )
-
-            ->get();
-
-        return view('negocio', [
-
-            'negocio' => $negocio,
-
-            'productos' => $productos
-
-        ]);
+    if (!$negocio) {
+        abort(404);
     }
 
+    $productos = DB::table('productos_servicios as p')
+        ->leftJoin('categorias_negocio as c', 'c.id', '=', 'p.categoria_id')
+        ->leftJoin('imagenes_productos as img', function($join) {
+            $join->on('img.producto_id', '=', 'p.id')
+                 ->where('img.es_principal', '=', 1);
+        })
+        ->where('p.negocio_id', $id)
+        ->where('p.esta_activo', 1)
+        ->select(
+            'p.id',
+            'p.nombre',
+            'p.descripcion',
+            'p.precio',
+            'p.tipo',
+            'c.nombre_categoria',
+            'img.ruta_imagen'
+        )
+        ->get();
+
+    return view('negocio', [
+        'negocio'   => $negocio,
+        'productos' => $productos,
+    ]);
+}
 }

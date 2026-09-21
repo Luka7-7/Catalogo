@@ -4,212 +4,157 @@
 
 @section('content')
 
-<section class="hero is-primary is-bold">
+{{-- HERO --}}
+<section class="border-b border-gray-800 bg-gradient-to-br from-teal-900/60 via-gray-900 to-gray-900">
+    <div class="mx-auto max-w-7xl px-4 py-12 md:py-16">
+        <div class="flex flex-col items-center gap-8 md:flex-row">
 
-    <div class="hero-body">
+            {{-- LOGO --}}
+            <div class="shrink-0 md:w-1/4 md:text-center">
+                <img
+                    src="{{ $negocio->ruta_logo
+                        ? asset($negocio->ruta_logo)
+                        : 'https://via.placeholder.com/150x150?text=Logo' }}"
+                    alt="Logo de {{ $negocio->nombre }}"
+                    class="mx-auto h-32 w-32 rounded-full border-2 border-gray-700 object-cover"
+                >
+            </div>
 
-        <div class="container">
+            {{-- INFORMACION --}}
+            <div class="flex-1 text-center md:text-left">
 
-            <div class="columns is-vcentered">
+                <h1 class="text-3xl font-bold text-white md:text-4xl">
+                    {{ $negocio->nombre }}
+                </h1>
 
-                {{-- LOGO --}}
-                <div class="column is-3 has-text-centered">
+                <p class="mt-2 text-lg text-gray-300">
+                    {{ $negocio->descripcion }}
+                </p>
 
-                    @if($negocio->ruta_logo)
-
-                        <figure class="image is-128x128 is-inline-block">
-
-                            <img
-                                src="{{ asset($negocio->ruta_logo) }}"
-                                class="is-rounded"
-                            >
-
-                        </figure>
-
-                    @else
-
-                        <figure class="image is-128x128 is-inline-block">
-
-                            <img
-                                src="https://via.placeholder.com/150x150?text=Logo"
-                                class="is-rounded"
-                            >
-
-                        </figure>
-
-                    @endif
-
-                </div>
-
-                {{-- INFORMACION --}}
-                <div class="column">
-
-                    <h1 class="title">
-                        {{ $negocio->nombre }}
-                    </h1>
-
-                    <p class="subtitle">
-                        {{ $negocio->descripcion }}
+                @if($negocio->ubicacion)
+                    <p class="mt-3 text-gray-400">
+                        📍 {{ $negocio->ubicacion }}
                     </p>
+                @endif
 
-                    @if($negocio->ubicacion)
+                <div class="mt-5 flex flex-wrap justify-center gap-2 md:justify-start">
 
-                        <p class="mb-3">
-
-                            📍 {{ $negocio->ubicacion }}
-
-                        </p>
-
+                    @if($negocio->enlace_whatsapp)
+                        <a
+                            href="{{ $negocio->enlace_whatsapp }}"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                        >
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                        </a>
                     @endif
 
-                    <div class="buttons mt-4">
+                    @if($negocio->url_facebook)
+                        <a
+                            href="{{ $negocio->url_facebook }}"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                        >
+                            <i class="fa-brands fa-facebook"></i> Facebook
+                        </a>
+                    @endif
 
-                        @if($negocio->enlace_whatsapp)
+                    @if($negocio->url_instagram)
+                        <a
+                            href="{{ $negocio->url_instagram }}"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                        >
+                            <i class="fa-brands fa-instagram"></i> Instagram
+                        </a>
+                    @endif
 
-                            <a
-                                href="{{ $negocio->enlace_whatsapp }}"
-                                target="_blank"
-                                class="button is-success"
-                            >
-                               <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                            </a>
-
-                        @endif
-
-                        @if($negocio->url_facebook)
-
-                            <a
-                                href="{{ $negocio->url_facebook }}"
-                                target="_blank"
-                                class="button is-link"
-                            >
-                                <i class="fa-brands fa-facebook"></i>Facebook
-                            </a>
-
-                        @endif
-
-                        @if($negocio->url_instagram)
-
-                            <a
-                                href="{{ $negocio->url_instagram }}"
-                                target="_blank"
-                                class="button is-danger"
-                            >
-                                <i class="fa-brands fa-instagram"></i> Instagram
-                            </a>
-
-                        @endif
-
-                        @if($negocio->url_tiktok)
-
-                            <a
-                                href="{{ $negocio->url_tiktok }}"
-                                target="_blank"
-                                class="button is-dark"
-                            >
-                                TikTok
-                            </a>
-
-                        @endif
-
-                    </div>
+                    @if($negocio->url_tiktok)
+                        <a
+                            href="{{ $negocio->url_tiktok }}"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 rounded-md border border-gray-600 bg-gray-950 px-4 py-2 font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                        >
+                            <i class="fa-brands fa-tiktok"></i> TikTok
+                        </a>
+                    @endif
 
                 </div>
-
             </div>
 
         </div>
-
     </div>
-
 </section>
 
-<div class="container py-6">
+{{-- PRODUCTOS Y SERVICIOS --}}
+<div class="mx-auto max-w-7xl px-4 py-12">
 
-    <h2 class="title is-3 mb-5">
-
+    <h2 class="mb-6 text-2xl font-semibold text-white md:text-3xl">
         Productos y Servicios
-
     </h2>
 
-    <div class="columns is-multiline">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
         @forelse($productos as $producto)
 
-            <div class="column is-12-mobile is-6-tablet is-4-desktop">
+            <div class="flex flex-col overflow-hidden rounded-xl border border-gray-800 bg-gray-900">
 
-                <div class="card">
-
-                    {{-- IMAGEN --}}
-                    <div class="card-image">
-
-                        <figure class="image is-4by3">
-
-                            <img
-                                src="{{ $producto->ruta_imagen 
-                                    ? asset($producto->ruta_imagen)
-                                    : 'https://via.placeholder.com/400x300?text=Sin+Imagen' }}"
-                            >
-
-                        </figure>
-
-                    </div>
-
-                    {{-- CONTENIDO --}}
-                    <div class="card-content">
-
-                        <h4 class="title is-5">
-                            {{ $producto->nombre }}
-                        </h4>
-
-                        <div class="mb-3">
-
-                            <span class="tag is-primary">
-                                {{ $producto->tipo }}
-                            </span>
-
-                            @if($producto->nombre_categoria)
-
-                                <span class="tag is-info is-light">
-                                    {{ $producto->nombre_categoria }}
-                                </span>
-
-                            @endif
-
-                        </div>
-
-                        <p class="mb-4">
-                            {{ $producto->descripcion }}
-                        </p>
-
-                        <h4 class="has-text-success">
-
-                            ${{ number_format($producto->precio, 2) }}
-
-                        </h4>
-
-                    </div>
-
+                {{-- IMAGEN --}}
+                <div class="aspect-[4/3] bg-gray-800">
+                    <img
+                        src="{{ $producto->ruta_imagen
+                            ? asset($producto->ruta_imagen)
+                            : 'https://via.placeholder.com/400x300?text=Sin+Imagen' }}"
+                        alt="{{ $producto->nombre }}"
+                        class="h-full w-full object-cover"
+                    >
                 </div>
 
+                {{-- CONTENIDO --}}
+                <div class="flex flex-1 flex-col p-5">
+
+                    <h4 class="text-lg font-semibold text-white">
+                        {{ $producto->nombre }}
+                    </h4>
+
+                    <div class="mt-3 flex flex-wrap gap-2">
+
+                        <span class="rounded-full bg-teal-500/20 px-2.5 py-0.5 text-xs font-medium text-teal-300">
+                            {{ $producto->tipo }}
+                        </span>
+
+                        @if($producto->nombre_categoria)
+                            <span class="rounded-full bg-sky-500/15 px-2.5 py-0.5 text-xs font-medium text-sky-300">
+                                {{ $producto->nombre_categoria }}
+                            </span>
+                        @endif
+
+                    </div>
+
+                    <p class="mt-3 flex-1 text-gray-400">
+                        {{ $producto->descripcion }}
+                    </p>
+
+                    <p class="mt-4 text-xl font-semibold text-emerald-400">
+                        ${{ number_format($producto->precio, 2) }}
+                    </p>
+
+                </div>
             </div>
 
         @empty
 
-            <div class="column is-12">
-
-                <div class="notification is-warning">
-
-                    Este negocio aún no tiene productos o servicios registrados.
-
-                </div>
-
+            <div class="col-span-full rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-amber-200">
+                Este negocio aún no tiene productos o servicios registrados.
             </div>
 
         @endforelse
 
     </div>
-
 </div>
 
 @endsection

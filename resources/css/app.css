@@ -1,58 +1,37 @@
-@import 'tailwindcss';
-@import 'bootstrap';
-@import "bulma/css/bulma.min.css";
+@import "tailwindcss";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
-:root {
-  --bulma-primary-h: 252deg;
-  --bulma-success-h: 112deg;
-  --bulma-success-s: 71%;
-  --bulma-success-l: 44%;
-  --bulma-danger-h: 360deg;
-  --bulma-danger-l: 31%;
-  --mi-azul-fondo: #215aa6;
+@layer base {
+  :root {
+    --mi-azul-fondo: #215aa6;
+  }
+
+  html, body {
+    background-color: var(--mi-azul-fondo) !important;
+    min-height: 100vh; 
+  }
 }
 
-html, body {
-  background-color: var(--mi-azul-fondo) !important;
-  min-height: 100vh; 
-}
-.is-logo-custom {
-    max-height: 60px !important; /* Ajusta esto según tu logo */
+@layer components {
+  .is-logo-custom {
+    max-height: 60px !important;
     width: auto;
     object-fit: contain;
-}
+  }
 
-.categoria-menu {
-    background: white;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 20px;
-}
+  .categoria-menu {
+    @apply bg-white rounded-xl p-4 shadow-md sticky top-5;
+  }
 
-.categoria-menu .menu-label {
-    font-size: 1rem;
-    color: #363636;
-    font-weight: bold;
-}
+  .categoria-menu .menu-label {
+    @apply text-base text-gray-800 font-bold mb-2 block;
+  }
 
-.categoria-menu .menu-list a {
-    border-radius: 8px;
-    margin-bottom: 6px;
-    transition: all 0.2s ease;
-    padding: 10px 14px;
-}
+  .categoria-menu .menu-list a {
+    @apply rounded-lg mb-1.5 px-3.5 py-2.5 transition-all duration-200 block text-gray-700 hover:bg-blue-600 hover:text-white hover:pl-4.5;
+  }
 
-.categoria-menu .menu-list a:hover {
-    background-color: #3273dc;
-    color: white;
-    padding-left: 18px;
-}
-
-.categoria-menu .menu-list a.is-active {
-    background-color: #3273dc;
-    color: white;
-    font-weight: bold;
+  .categoria-menu .menu-list a.is-active {
+    @apply bg-blue-600 text-white font-bold;
+  }
 }

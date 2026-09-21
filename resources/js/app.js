@@ -1,9 +1,7 @@
 import './bootstrap';
-import 'bulma/css/bulma.css'; // Añade esta línea
 
 
-import * as bulma from 'bulma';
-window.bulma = bulma;
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
